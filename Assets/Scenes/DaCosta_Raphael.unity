@@ -3064,7 +3064,38 @@ MonoBehaviour:
     description: Looks cool I guess
   - value: Ring
     description: Stylish
-  _traits: []
+  _enchantments:
+  - Fiery
+  - Chilling
+  - Obscure
+  - Bloody
+  - Relative
+  - Hypnotic
+  - Damaged
+  - Goofy
+  - Pretty
+  - Poisoned
+  _traits:
+  - value: Athletic
+    description: Can run faster and longer without tiring.
+  - value: Brave
+    description: Less prone to becoming panicked.
+  - value: Cat's Eyes
+    description: Better vision at night.
+  - value: Fast Healer
+    description: Recovers faster from injury and illness.
+  - value: Fast Learner
+    description: Increases XP gains.
+  - value: Agoraphobic
+    description: Gets panicked when outdoors.
+  - value: Clumsy
+    description: Makes more noise when moving.
+  - value: Emaciated
+    description: Low strength, low endurance and prone to injury.
+  - value: Illiterate
+    description: Cannot read.
+  - value: Pacifist
+    description: Can't fight.
 --- !u!1 &1530463960
 GameObject:
   m_ObjectHideFlags: 0

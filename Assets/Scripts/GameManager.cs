@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     private List<WeaponInfo> _weapons;
     [SerializeField]
     private List<ArmorInfo> _armors;
+    [SerializeField]
+    private List<string> _enchantments;
     [Space(20)]
 
     [Header("Traits")]
