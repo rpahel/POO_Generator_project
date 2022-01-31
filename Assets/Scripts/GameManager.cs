@@ -1,18 +1,34 @@
+using Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Basic Character Info")]
+    [SerializeField]
+    private List<string> _firstNames;
+    [SerializeField]
+    private List<string> _familyNames;
+    [SerializeField]
+    private List<CharacterClass> _characterClasses;
+    [SerializeField]
+    private List<CharacterRace> _characterRaces;
+    [Space(20)]
 
-    // Update is called once per frame
-    void Update()
+    [Header("Equipments")]
+    [SerializeField]
+    private List<WeaponInfo> _weapons;
+    [SerializeField]
+    private List<ArmorInfo> _armors;
+    [Space(20)]
+
+    [Header("Traits")]
+    [SerializeField]
+    private List<Trait> _traits;
+
+    private void Awake()
     {
-        
+
     }
 }
