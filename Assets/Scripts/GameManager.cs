@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
 
     private Character[] _generatedCharacters = new Character[3];
 
+    public List<Character> _keptCharacters = new List<Character>();
+
     public Character[] GeneratedCharacters { get { return _generatedCharacters; } }
 
     //private void Awake()
@@ -110,7 +112,6 @@ public class GameManager : MonoBehaviour
             character.AddNew(characterName);
 
             string characterAlignementString = ((LawChaos)Random.Range(0, 3)).ToString() + " " + ((GoodEvil)Random.Range(0, 3)).ToString();
-            Debug.Log(characterAlignementString);
             BaseStuff characterAlignement = new BaseStuff("characterAlignment", characterAlignementString);
             character.AddNew(characterAlignement);
 

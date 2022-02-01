@@ -55,16 +55,15 @@ public class SheetScript : MonoBehaviour
         for(int i = 0; i < 5; i++)
         {
             _itemTexts[i].gameObject.AddComponent<OnMouseHoverScript>();
+            _itemTexts[i].text = "";
             _traitTexts[i].gameObject.AddComponent<OnMouseHoverScript>();
+            _traitTexts[i].text = "";
         }
     }
 
     public void UpdateBasicInfo()
     {
-        int itemNb = 0;
-        int traitNb = 0;
-
-        foreach(var info in GlobalManager.GameInstance.GeneratedCharacters[_sheetNb].GetCharacteristics)
+        foreach (var info in GlobalManager.GameInstance.GeneratedCharacters[_sheetNb].GetCharacteristics)
         {
             switch (info.Name)
             {
@@ -96,19 +95,7 @@ public class SheetScript : MonoBehaviour
                     _weightText.text = "Weight: " + bodyInfo._weight.ToString("F2") + " kg";
                     break;
 
-                case "weapon":
-                    _itemTexts[itemNb].text = info.Value;
-                    itemNb++;
-                    break;
-
-                case "armor":
-                    _itemTexts[itemNb].text = info.Value;
-                    itemNb++;
-                    break;
-
-                case "characterTrait":
-                    _itemTexts[traitNb].text = info.Value;
-                    traitNb++;
+                default:
                     break;
             }
         }
@@ -117,11 +104,32 @@ public class SheetScript : MonoBehaviour
 
     public void UpdateEquipment()
     {
-       
+        int itemNb = 0;
+        foreach (var info in GlobalManager.GameInstance.GeneratedCharacters[_sheetNb].GetCharacteristics)
+        {
+            if (info.Name == "weapon" || info.Name == "armor")
+            {
+                _itemTexts[itemNb].text = info.Value;
+                itemNb++;
+            }
+        }
     }
 
     public void UpdateTraits()
     {
+        int traitNb = 0;
+        foreach (var info in GlobalManager.GameInstance.GeneratedCharacters[_sheetNb].GetCharacteristics)
+        {
+            if(info.Name == "characterTrait")
+            {
+                _traitTexts[traitNb].text = info.Value;
+                traitNb++;
+            }
+        }
+    }
 
+    public void SelectSheet()
+    {
+        GlobalManager.UIInstance.ShowSelectedSheet(_sheetNb);
     }
 }
