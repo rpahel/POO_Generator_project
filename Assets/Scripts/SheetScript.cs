@@ -27,6 +27,7 @@ public class SheetScript : MonoBehaviour
     public TMP_Text _bodyTypeText;
     public TMP_Text _heightText;
     public TMP_Text _weightText;
+    private TMP_Text[] _skillsTexts;
     [Space(20)]
 
     [Header("Equipment")]
@@ -50,6 +51,7 @@ public class SheetScript : MonoBehaviour
     {
         _itemTexts = new TMP_Text[5]{ _item1Text, _item2Text, _item3Text, _item4Text, _item5Text};
         _traitTexts = new TMP_Text[5]{ _trait1Text, _trait2Text, _trait3Text, _trait4Text, _trait5Text};
+        _skillsTexts = new TMP_Text[5]{ _strengthText, _dexterityText, _constitutionText, _intelligenceText, _charismaText};
         _classText.gameObject.AddComponent<OnMouseHoverScript>();
         _raceText.gameObject.AddComponent<OnMouseHoverScript>();
         for(int i = 0; i < 5; i++)
@@ -63,6 +65,8 @@ public class SheetScript : MonoBehaviour
 
     public void UpdateBasicInfo()
     {
+        int[] baseSkills = new int[5] { 0, 0, 0, 0, 0 };
+
         foreach (var info in GlobalManager.GameInstance.GeneratedCharacters[_sheetNb].GetCharacteristics)
         {
             switch (info.Name)
@@ -77,10 +81,20 @@ public class SheetScript : MonoBehaviour
 
                 case "characterClass":
                     _classText.text = info.Value;
+                    ClassRace yop = info as ClassRace;
+                    for (int i = 0; i < baseSkills.Length; i++)
+                    {
+                        baseSkills[i] += yop._baseSkills[i];
+                    }
                     break;
 
                 case "characterRace":
                     _raceText.text = info.Value;
+                    ClassRace poy = info as ClassRace;
+                    for (int i = 0; i < baseSkills.Length; i++)
+                    {
+                        baseSkills[i] += poy._baseSkills[i];
+                    }
                     break;
 
                 case "characterBody":
@@ -98,6 +112,12 @@ public class SheetScript : MonoBehaviour
                 default:
                     break;
             }
+        }
+
+        for (int i = 0; i < _skillsTexts.Length; i++)
+        {
+            Debug.Log(baseSkills[i]);
+            _skillsTexts[i].text = baseSkills[i].ToString();
         }
         //Au script du gameobject du texte, assigner la definition, damge , range, defense, basicskill
     }
@@ -136,6 +156,7 @@ public class SheetScript : MonoBehaviour
 
     public void LoadInfo(int position)
     {
+        int[] baseSkills = new int[5]{0,0,0,0,0};
         int itemNb = 0;
         int traitNb = 0;
         foreach (var info in GlobalManager.GameInstance._keptCharacters[position].GetCharacteristics)
@@ -152,10 +173,20 @@ public class SheetScript : MonoBehaviour
 
                 case "characterClass":
                     _classText.text = info.Value;
+                    ClassRace yop = info as ClassRace;
+                    for(int i = 0; i < baseSkills.Length; i++)
+                    {
+                        baseSkills[i] += yop._baseSkills[i];
+                    }
                     break;
 
                 case "characterRace":
                     _raceText.text = info.Value;
+                    ClassRace poy = info as ClassRace;
+                    for (int i = 0; i < baseSkills.Length; i++)
+                    {
+                        baseSkills[i] += poy._baseSkills[i];
+                    }
                     break;
 
                 case "characterBody":
@@ -184,6 +215,11 @@ public class SheetScript : MonoBehaviour
             {
                 _traitTexts[traitNb].text = info.Value;
                 traitNb++;
+            }
+
+            for(int i = 0; i < _skillsTexts.Length; i++)
+            {
+                _skillsTexts[i].text = baseSkills[i].ToString();
             }
         }
         //Au script du gameobject du texte, assigner la definition, damge , range, defense, basicskill
