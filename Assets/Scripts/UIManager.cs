@@ -59,8 +59,8 @@ public class UIManager : MonoBehaviour
         {
             GameObject newSheet = Instantiate(_sheet, spot);
             newSheet.GetComponent<SheetScript>()._sheetNb = i++;
+            newSheet.GetComponent<SheetScript>().UpdateBasicInfo();
         }
-
     }
 
     public void GenerateCharacters()

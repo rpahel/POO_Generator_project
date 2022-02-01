@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour
             character.AddNew(characterName);
 
             string characterAlignementString = ((LawChaos)Random.Range(0, 3)).ToString() + " " + ((GoodEvil)Random.Range(0, 3)).ToString();
+            Debug.Log(characterAlignementString);
             BaseStuff characterAlignement = new BaseStuff("characterAlignment", characterAlignementString);
             character.AddNew(characterAlignement);
 
@@ -121,7 +122,7 @@ public class GameManager : MonoBehaviour
             BaseStuff characterRace = new ClassRace("characterRace", newRace.value, newRace.description, newRace.baseSkills);
             character.AddNew(characterRace);
 
-            BaseStuff characterBody = new Body((HairLength)Random.Range(1, 5), (HairType)Random.Range(1, 4), _colors[Random.Range(0, _colors.Count)], _colors[Random.Range(0, _colors.Count)], (BodyType)Random.Range(1, 5), Random.Range(100.0f, 250.0f), Random.Range(0.1f, 300.0f), (Sex)Random.Range(1, 4));
+            BaseStuff characterBody = new Body((HairLength)Random.Range(1, 5), (HairType)Random.Range(1, 4), _colors[Random.Range(0, _colors.Count)], _colors[Random.Range(0, _colors.Count)], (BodyType)Random.Range(1, 5), Random.Range(100.0f, 250.0f), Random.Range(0.1f, 120.0f), (Sex)Random.Range(1, 4));
             character.AddNew(characterBody);
 
             _generatedCharacters[i] = character;
@@ -160,28 +161,32 @@ public class GameManager : MonoBehaviour
                 int X = Random.Range(0, _weapons.Count);
                 if (Random.Range(0, 2) == 0)
                 {
-                    BaseStuff newWeapon = new Weapon(_weapons[X].value, _weapons[X].description, Random.Range(.0f, 100.0f), Random.Range(.0f, 100.0f));
-                    character.AddNew(newWeapon);
+                    if (Random.Range(0, 2) == 0)
+                    {
+                        BaseStuff newWeapon = new Weapon(_weapons[X].value, _weapons[X].description, Random.Range(.0f, 100.0f), Random.Range(.0f, 100.0f));
+                        character.AddNew(newWeapon);
+                    }
+                    else
+                    {
+                        BaseStuff newWeapon = new Weapon(_weapons[X].value, _weapons[X].description, Random.Range(.0f, 100.0f), Random.Range(.0f, 100.0f), _enchantments[Random.Range(0, _enchantments.Count)]);
+                        character.AddNew(newWeapon);
+                    }
                 }
                 else
                 {
-                    BaseStuff newWeapon = new Weapon(_weapons[X].value, _weapons[X].description, Random.Range(.0f, 100.0f), Random.Range(.0f, 100.0f), _enchantments[Random.Range(0, _enchantments.Count)]);
-                    character.AddNew(newWeapon);
-                }
-
-                X = Random.Range(0, _armors.Count);
-                if (Random.Range(0, 2) == 0)
-                {
-                    BaseStuff newArmor = new Armor(_armors[X].value, _armors[X].description, Random.Range(.0f, 100.0f));
-                    character.AddNew(newArmor);
-                }
-                else
-                {
-                    BaseStuff newArmor = new Armor(_armors[X].value, _armors[X].description, Random.Range(.0f, 100.0f), _enchantments[Random.Range(0, _enchantments.Count)]);
-                    character.AddNew(newArmor);
+                    X = Random.Range(0, _armors.Count);
+                    if (Random.Range(0, 2) == 0)
+                    {
+                        BaseStuff newArmor = new Armor(_armors[X].value, _armors[X].description, Random.Range(.0f, 100.0f));
+                        character.AddNew(newArmor);
+                    }
+                    else
+                    {
+                        BaseStuff newArmor = new Armor(_armors[X].value, _armors[X].description, Random.Range(.0f, 100.0f), _enchantments[Random.Range(0, _enchantments.Count)]);
+                        character.AddNew(newArmor);
+                    }
                 }
             }
-
             _generatedCharacters[i] = character;
         }
     }

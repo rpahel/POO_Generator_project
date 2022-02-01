@@ -7,27 +7,27 @@ namespace Data
     public enum BodyType
     {
         NONE,
-        SKINNY,
-        AVERAGE,
-        MUSCULAR,
-        FAT
+        Skinny,
+        Average,
+        Muscular,
+        Fat
     }
     
     public enum HairType
     {
         NONE,
-        STRAIGHT,
-        CURLY,
-        WAVY
+        Straight,
+        Curly,
+        Wavy
     }
     
     public enum HairLength
     {
         NONE,
-        BALD,
-        SHORT,
-        MEDIUM,
-        LONG
+        Bald,
+        Short,
+        Medium,
+        Long
     }
     
     public enum Sex
@@ -196,16 +196,16 @@ namespace Data
 
     public enum LawChaos
     {
-        LAWFUL,
-        NEUTRAL,
-        CHAOTIC
+        Lawful,
+        Neutral,
+        Chaotic
     }
 
     public enum GoodEvil
     {
-        GOOD,
-        NEUTRAL,
-        EVIL
+        Good,
+        Neutral,
+        Evil
     }
 
     [Serializable]
