@@ -91,21 +91,9 @@ namespace Data
 
         public Body(HairLength hairLength, HairType hairType, string hairColor, string eyeColor, BodyType bodyType, float height, float weight, Sex sex)
         {
-            _name = "body";
+            _name = "characterBody";
             _value = null;
             _description = null;
-            _hairLength = hairLength;
-            _hairType = hairType;
-            _hairColor = hairColor;
-            _eyeColor = eyeColor;
-            _bodyType = bodyType;
-            _height = height;
-            _weight = weight;
-            _sex = sex;
-        }
-
-        public void ChangeBodyValues(HairLength hairLength, HairType hairType, string hairColor, string eyeColor, BodyType bodyType, float height, float weight, Sex sex)
-        {
             _hairLength = hairLength;
             _hairType = hairType;
             _hairColor = hairColor;
@@ -120,6 +108,8 @@ namespace Data
     public class Equipment : BaseStuff
     {
         protected string _enchantment;
+
+        public string Enchantment { get { return _enchantment; } }
     }
 
     public class Weapon : Equipment
@@ -127,18 +117,18 @@ namespace Data
         public float _damage;
         public float _range;
 
-        public Weapon(string name, string value, string description, float damage, float range, string enchantment)
+        public Weapon(string value, string description, float damage, float range, string enchantment)
         {
-            _name = name;
+            _name = "weapon";
             _value = value;
             _description = description;
             _enchantment = enchantment;
             _damage = damage;
             _range = range;
         }
-        public Weapon(string name, string value, string description, float damage, float range)
+        public Weapon(string value, string description, float damage, float range)
         {
-            _name = name;
+            _name = "weapon";
             _value = value;
             _description = description;
             _enchantment = null;
@@ -150,18 +140,18 @@ namespace Data
     public class Armor : Equipment
     {
         public float _defense;
-        public Armor(string name, string value, string description, float defense, string enchantment)
+        public Armor(string value, string description, float defense, string enchantment)
         {
-            _name = name;
+            _name = "armor";
             _value = value;
             _description = description;
             _defense = defense;
             _enchantment = enchantment;
         }
 
-        public Armor(string name, string value, string description, float defense)
+        public Armor(string value, string description, float defense)
         {
-            _name = name;
+            _name = "armor";
             _value = value;
             _description = description;
             _defense = defense;
@@ -181,42 +171,24 @@ namespace Data
             Characteristics.Add(stuff);
         }
 
-        //public void AddNew(ClassRace classRace)
-        //{
-        //    BaseStuff stuff = classRace;
-        //    Characteristics.Add(stuff);
-        //}
-        //
-        //public void AddNew(Body body)
-        //{
-        //    BaseStuff stuff = body;
-        //    Characteristics.Add(stuff);
-        //}
-        //
-        //public void AddNew(Weapon weapon)
-        //{
-        //    BaseStuff stuff = weapon;
-        //    Characteristics.Add(stuff);
-        //}
-        //
-        //public void AddNew(Armor armor)
-        //{
-        //    BaseStuff stuff = armor;
-        //    Characteristics.Add(stuff);
-        //}
-
-        public List<BaseStuff> GetCharacteristics{ get; }
+        public List<BaseStuff> GetCharacteristics{ get => Characteristics; }
+        
         public void ClearBasicInfo()
         {
-            //
+            Characteristics.RemoveAll(x => x.Name == "characterName");
+            Characteristics.RemoveAll(x => x.Name == "characterAlignment");
+            Characteristics.RemoveAll(x => x.Name == "characterClass");
+            Characteristics.RemoveAll(x => x.Name == "characterRace");
+            Characteristics.RemoveAll(x => x.Name == "characterBody");
         }
         public void ClearEquipment()
         {
-            //
+            Characteristics.RemoveAll(x => x.Name == "weapon");
+            Characteristics.RemoveAll(x => x.Name == "armor");
         }
         public void ClearTraits()
         {
-            //
+            Characteristics.RemoveAll(x => x.Name == "characterTrait");
         }
     }
 

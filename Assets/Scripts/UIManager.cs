@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -49,6 +47,8 @@ public class UIManager : MonoBehaviour
 
     public void FirstGenerate()
     {
+        GlobalManager.GameInstance.GenerateBasicInfo();
+        
         int i = 0;
         _buttonFirstGeneration.SetActive(false);
         foreach(var button in _buttonsGenerate)
@@ -60,21 +60,43 @@ public class UIManager : MonoBehaviour
             GameObject newSheet = Instantiate(_sheet, spot);
             newSheet.GetComponent<SheetScript>()._sheetNb = i++;
         }
+
     }
 
     public void GenerateCharacters()
     {
-        //
+        GlobalManager.GameInstance.GenerateBasicInfo();
+        foreach(var stuff in GlobalManager.GameInstance.GeneratedCharacters[0].GetCharacteristics)
+        {
+            if(stuff.Name == "characterName")
+            {
+                Debug.Log(stuff.Value);
+            }
+        }
     }
 
     public void GenerateTraits()
     {
-        //
+        GlobalManager.GameInstance.GenerateTraits();
+        foreach (var stuff in GlobalManager.GameInstance.GeneratedCharacters[0].GetCharacteristics)
+        {
+            if (stuff.Name == "characterTrait")
+            {
+                Debug.Log(stuff.Value);
+            }
+        }
     }
 
     public void GenerateEquipment()
     {
-        //
+        GlobalManager.GameInstance.GenerateEquipment();
+        foreach (var stuff in GlobalManager.GameInstance.GeneratedCharacters[0].GetCharacteristics)
+        {
+            if (stuff.Name == "weapon" || stuff.Name == "armor")
+            {
+                Debug.Log(stuff.Value);
+            }
+        }
     }
 
     public void SavedSheets()
@@ -85,5 +107,10 @@ public class UIManager : MonoBehaviour
         {
             Instantiate(_buttonSavedSheet, spot);
         }
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
