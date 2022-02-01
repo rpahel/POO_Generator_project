@@ -1,4 +1,7 @@
 using System;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +15,7 @@ namespace Data
         Muscular,
         Fat
     }
-    
+
     public enum HairType
     {
         NONE,
@@ -20,7 +23,7 @@ namespace Data
         Curly,
         Wavy
     }
-    
+
     public enum HairLength
     {
         NONE,
@@ -29,7 +32,7 @@ namespace Data
         Medium,
         Long
     }
-    
+
     public enum Sex
     {
         NONE,
@@ -38,6 +41,7 @@ namespace Data
         O
     }
 
+    [Serializable]
     public class BaseStuff
     {
         protected string _name;
@@ -56,13 +60,14 @@ namespace Data
             _value = value;
             _description = null;
         }
-        protected BaseStuff(){}
+        protected BaseStuff() { }
 
         public string Name { get => _name; }
-        public string Value { get => _value; set{ _value = value; } }
+        public string Value { get => _value; set { _value = value; } }
         public string Description { get => _description; set { _description = value; } }
     }
 
+    [Serializable]
     public class ClassRace : BaseStuff
     {
         public int[] _baseSkills = new int[5];
@@ -78,6 +83,7 @@ namespace Data
         public int[] GetBaseSkills { get; set; }
     }
 
+    [Serializable]
     public class Body : BaseStuff
     {
         public HairLength _hairLength;
@@ -105,6 +111,7 @@ namespace Data
         }
     }
 
+    [Serializable]
     public class Equipment : BaseStuff
     {
         protected string _enchantment;
@@ -112,6 +119,7 @@ namespace Data
         public string Enchantment { get { return _enchantment; } }
     }
 
+    [Serializable]
     public class Weapon : Equipment
     {
         public float _damage;
@@ -137,6 +145,7 @@ namespace Data
         }
     }
 
+    [Serializable]
     public class Armor : Equipment
     {
         public float _defense;
@@ -159,6 +168,7 @@ namespace Data
         }
     }
 
+    [Serializable]
     public class Character
     {
         private List<BaseStuff> Characteristics;
@@ -171,8 +181,8 @@ namespace Data
             Characteristics.Add(stuff);
         }
 
-        public List<BaseStuff> GetCharacteristics{ get => Characteristics; }
-        
+        public List<BaseStuff> GetCharacteristics { get => Characteristics; }
+
         public void ClearBasicInfo()
         {
             Characteristics.RemoveAll(x => x.Name == "characterName");
@@ -243,5 +253,36 @@ namespace Data
     {
         public string value;
         public string description;
+    }
+
+    // Le code ci-dessous vient de www.codeproject.com/Articles/23832/Implementing-Deep-Cloning-via-Serializing-objects
+    // Je voulais faire Class A = Class B mais apparemment c'est pas possible vu que ça crée une référence
+    // Et moi je voulais faire une vraie copie
+    // Donc apparemment faut faire une deep copy et ce code permet de le faire parce que y'a pas de manière simple de le faire
+
+    public static class ObjectCopier
+    {
+        public static Character Clone<Character>(Character source)
+        {
+            if (!typeof(Character).IsSerializable)
+            {
+                throw new ArgumentException("The type must be serializable.", "source");
+            }
+
+            // Don't serialize a null object, simply return the default for that object
+            if (source is null)
+            {
+                return default(Character);
+            }
+
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new MemoryStream();
+            using (stream)
+            {
+                formatter.Serialize(stream, source);
+                stream.Seek(0, SeekOrigin.Begin);
+                return (Character)formatter.Deserialize(stream);
+            }
+        }
     }
 }

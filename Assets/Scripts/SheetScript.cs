@@ -102,6 +102,7 @@ public class SheetScript : MonoBehaviour
         //Au script du gameobject du texte, assigner la definition, damge , range, defense, basicskill
     }
 
+
     public void UpdateEquipment()
     {
         int itemNb = 0;
@@ -131,5 +132,60 @@ public class SheetScript : MonoBehaviour
     public void SelectSheet()
     {
         GlobalManager.UIInstance.ShowSelectedSheet(_sheetNb);
+    }
+
+    public void LoadInfo(int position)
+    {
+        int itemNb = 0;
+        int traitNb = 0;
+        foreach (var info in GlobalManager.GameInstance._keptCharacters[position].GetCharacteristics)
+        {
+            switch (info.Name)
+            {
+                case "characterName":
+                    _characterNameText.text = info.Value;
+                    break;
+
+                case "characterAlignment":
+                    _alignementText.text = info.Value;
+                    break;
+
+                case "characterClass":
+                    _classText.text = info.Value;
+                    break;
+
+                case "characterRace":
+                    _raceText.text = info.Value;
+                    break;
+
+                case "characterBody":
+                    Body bodyInfo = info as Body;
+                    _sexText.text = bodyInfo._sex.ToString();
+                    _hairTypeText.text = "Hair type: " + bodyInfo._hairType.ToString();
+                    _hairLengthText.text = "Hair length: " + bodyInfo._hairLength.ToString();
+                    _hairColorText.text = "Hair color: " + bodyInfo._hairColor;
+                    _eyeColorText.text = "Eye color: " + bodyInfo._eyeColor;
+                    _bodyTypeText.text = "Body type: " + bodyInfo._bodyType.ToString();
+                    _heightText.text = "Height: " + bodyInfo._height.ToString("F2") + " cm";
+                    _weightText.text = "Weight: " + bodyInfo._weight.ToString("F2") + " kg";
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (info.Name == "weapon" || info.Name == "armor")
+            {
+                _itemTexts[itemNb].text = info.Value;
+                itemNb++;
+            }
+
+            if (info.Name == "characterTrait")
+            {
+                _traitTexts[traitNb].text = info.Value;
+                traitNb++;
+            }
+        }
+        //Au script du gameobject du texte, assigner la definition, damge , range, defense, basicskill
     }
 }

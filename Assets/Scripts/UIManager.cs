@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using Data;
 
 public class UIManager : MonoBehaviour
 {
@@ -34,9 +35,11 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private RectTransform[] _buttonSavedSheetsSpots;
 
-    private GameObject[] _savedSheetsbuttons; // TU T ES ARRETE ICI 
+    private GameObject[] _savedSheetsbuttons;
     private SheetScript[] _sheetScripts = new SheetScript[3];
     private int _selectedSheetNb;
+    private GameObject _loadedKeptSheet;
+
     private void Awake()
     {
         _generatorScreen.SetActive(true);
@@ -98,12 +101,20 @@ public class UIManager : MonoBehaviour
 
     public void SavedSheets()
     {
+        foreach (var prout in GlobalManager.GameInstance._keptCharacters)
+        {
+            Debug.Log(prout.GetCharacteristics.Find(x => x.Name == "characterName").Value);
+        }
+
         _generatorScreen.SetActive(false);
         _savedSheetsScreen.SetActive(true);
+        _savedSheetsbuttons = new GameObject[GlobalManager.GameInstance._keptCharacters.Count];
         for(int i = 0; i < GlobalManager.GameInstance._keptCharacters.Count; i++)
         {
             GameObject newButton = Instantiate(_buttonSavedSheet, _buttonSavedSheetsSpots[i]);
             newButton.transform.GetChild(0).gameObject.GetComponent<TMP_Text>().text = GlobalManager.GameInstance._keptCharacters[i].GetCharacteristics.Find(x => x.Name == "characterName").Value;
+            newButton.GetComponent<KeptSheetButtonScript>()._buttonNb = i;
+            _savedSheetsbuttons[i] = newButton;
         }
     }
 
@@ -124,11 +135,24 @@ public class UIManager : MonoBehaviour
     {
         if(GlobalManager.GameInstance._keptCharacters.Count == 10)
         {
-            //GlobalManager.GameInstance._keptCharacters.RemoveAt(0);
-            GlobalManager.GameInstance._keptCharacters.Clear();
+            GlobalManager.GameInstance._keptCharacters.RemoveAt(0);
+            //GlobalManager.GameInstance._keptCharacters.Clear(); // fonctionne
         }
 
-        GlobalManager.GameInstance._keptCharacters.Add(GlobalManager.GameInstance.GeneratedCharacters[_selectedSheetNb]);
+        Character keptCharacter = ObjectCopier.Clone(GlobalManager.GameInstance.GeneratedCharacters[_selectedSheetNb]);
+
+        GlobalManager.GameInstance._keptCharacters.Add(keptCharacter);
+    }
+
+    public void LoadKeptSheet(int position)
+    {
+        if (_loadedKeptSheet)
+        {
+            Destroy(_loadedKeptSheet);
+        }
+
+        _loadedKeptSheet = Instantiate(_sheet, _savedSheetsScreen.transform);
+        _loadedKeptSheet.GetComponent<SheetScript>().LoadInfo(position);
     }
 
     public void Back()
@@ -136,6 +160,17 @@ public class UIManager : MonoBehaviour
         _generatorScreen.SetActive(true);
         _selectedSheetScreen.SetActive(false);
         _savedSheetsScreen.SetActive(false);
+
+        if(_savedSheetsbuttons != null)
+        {
+            for (int i = 0; i < _savedSheetsbuttons.Length; i++)
+            {
+                if (_savedSheetsbuttons[i] != null)
+                {
+                    Destroy(_savedSheetsbuttons[i]);
+                }
+            }
+        }
     }
 
     public void QuitGame()
