@@ -3237,6 +3237,7 @@ MonoBehaviour:
     description: Cannot read.
   - value: Pacifist
     description: Can't fight.
+  _keptCharacters: []
 --- !u!1 &1530463960
 GameObject:
   m_ObjectHideFlags: 0

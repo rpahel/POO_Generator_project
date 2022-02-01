@@ -52,13 +52,13 @@ public class SheetScript : MonoBehaviour
         _itemTexts = new TMP_Text[5]{ _item1Text, _item2Text, _item3Text, _item4Text, _item5Text};
         _traitTexts = new TMP_Text[5]{ _trait1Text, _trait2Text, _trait3Text, _trait4Text, _trait5Text};
         _skillsTexts = new TMP_Text[5]{ _strengthText, _dexterityText, _constitutionText, _intelligenceText, _charismaText};
-        _classText.gameObject.AddComponent<OnMouseHoverScript>();
-        _raceText.gameObject.AddComponent<OnMouseHoverScript>();
+        _classText.gameObject.AddComponent<BasicHoverable>();
+        _raceText.gameObject.AddComponent<BasicHoverable>();
         for(int i = 0; i < 5; i++)
         {
-            _itemTexts[i].gameObject.AddComponent<OnMouseHoverScript>();
+            _itemTexts[i].gameObject.AddComponent<BasicHoverable>();
             _itemTexts[i].text = "";
-            _traitTexts[i].gameObject.AddComponent<OnMouseHoverScript>();
+            _traitTexts[i].gameObject.AddComponent<BasicHoverable>();
             _traitTexts[i].text = "";
         }
     }
