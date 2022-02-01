@@ -43,8 +43,36 @@ public class SheetScript : MonoBehaviour
     public TMP_Text _trait4Text;
     public TMP_Text _trait5Text;
 
-    private void Start()
+    private void Awake()
     {
-        //
+        _classText.gameObject.AddComponent<OnMouseHoverScript>();
+        _raceText.gameObject.AddComponent<OnMouseHoverScript>();
+        _item1Text.gameObject.AddComponent<OnMouseHoverScript>();
+        _item2Text.gameObject.AddComponent<OnMouseHoverScript>();
+        _item3Text.gameObject.AddComponent<OnMouseHoverScript>();
+        _item4Text.gameObject.AddComponent<OnMouseHoverScript>();
+        _item5Text.gameObject.AddComponent<OnMouseHoverScript>();
+        _trait1Text.gameObject.AddComponent<OnMouseHoverScript>();
+        _trait2Text.gameObject.AddComponent<OnMouseHoverScript>();
+        _trait3Text.gameObject.AddComponent<OnMouseHoverScript>();
+        _trait4Text.gameObject.AddComponent<OnMouseHoverScript>();
+        _trait5Text.gameObject.AddComponent<OnMouseHoverScript>();
+    }
+
+    public void UpdateBasicInfo()
+    {
+        //foreach
+        //prendre le value, assigner au texte,
+        //Au script du gameobject du texte, assigner la definition, damge , range, defense, basicskill
+    }
+
+    public void UpdateEquipment()
+    {
+       
+    }
+
+    public void UpdateTraits()
+    {
+
     }
 }
