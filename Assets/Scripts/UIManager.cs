@@ -49,6 +49,7 @@ public class UIManager : MonoBehaviour
 
     public void FirstGenerate()
     {
+        int i = 0;
         _buttonFirstGeneration.SetActive(false);
         foreach(var button in _buttonsGenerate)
         {
@@ -56,7 +57,8 @@ public class UIManager : MonoBehaviour
         }
         foreach(var spot in _generatorSheetSpots)
         {
-            Instantiate(_sheet, spot);
+            GameObject newSheet = Instantiate(_sheet, spot);
+            newSheet.GetComponent<SheetScript>()._sheetNb = i++;
         }
     }
 

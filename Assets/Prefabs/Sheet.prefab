@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3620375760185278827}
   - component: {fileID: 3620375760185278828}
   - component: {fileID: -5071217658477400195}
+  - component: {fileID: 5923131441034923215}
   m_Layer: 5
   m_Name: Sheet
   m_TagString: Untagged
@@ -136,6 +137,45 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5923131441034923215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3620375760185278830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8853a2ea7412a854c9e570aae310f71d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterNameText: {fileID: 3620375761824767671}
+  _sexText: {fileID: 3620375760260702962}
+  _alignementText: {fileID: 3620375762007549670}
+  _classText: {fileID: 3620375760950175301}
+  _raceText: {fileID: 3620375761742343972}
+  _strengthText: {fileID: 3620375760459264317}
+  _dexterityText: {fileID: 3620375760224546729}
+  _constitutionText: {fileID: 3620375761004641963}
+  _intelligenceText: {fileID: 3620375762212195276}
+  _charismaText: {fileID: 3620375760831612947}
+  _hairTypeText: {fileID: 3620375761945255463}
+  _hairLengthText: {fileID: 3620375760378063354}
+  _hairColorText: {fileID: 3620375760304482318}
+  _eyeColorText: {fileID: 3620375761395430025}
+  _bodyTypeText: {fileID: 3620375761538488103}
+  _heightText: {fileID: 3620375761329865868}
+  _weightText: {fileID: 3620375762180119033}
+  _item1Text: {fileID: 3620375760442481962}
+  _item2Text: {fileID: 3620375762088805348}
+  _item3Text: {fileID: 3620375760940890925}
+  _item4Text: {fileID: 3620375761611178433}
+  _item5Text: {fileID: 3620375760684103392}
+  _trait1Text: {fileID: 3620375761195866490}
+  _trait2Text: {fileID: 3620375761327075164}
+  _trait3Text: {fileID: 3620375760806604613}
+  _trait4Text: {fileID: 3620375761334438993}
+  _trait5Text: {fileID: 3620375760481015732}
 --- !u!1 &3620375760224546731
 GameObject:
   m_ObjectHideFlags: 0

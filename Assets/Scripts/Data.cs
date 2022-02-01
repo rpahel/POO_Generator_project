@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Data
 {
@@ -29,7 +30,7 @@ namespace Data
         LONG
     }
     
-    public enum SEX
+    public enum Sex
     {
         NONE,
         M,
@@ -57,9 +58,9 @@ namespace Data
         }
         protected BaseStuff(){}
 
-        public string Name { get; }
-        public string Value { get; set; }
-        public string Description { get; set; }
+        public string Name { get => _name; }
+        public string Value { get => _value; set{ _value = value; } }
+        public string Description { get => _description; set { _description = value; } }
     }
 
     public class ClassRace : BaseStuff
@@ -86,9 +87,9 @@ namespace Data
         public BodyType _bodyType;
         public float _height;
         public float _weight;
-        public SEX _sex;
+        public Sex _sex;
 
-        public Body(HairLength hairLength, HairType hairType, string hairColor, string eyeColor, BodyType bodyType, float height, float weight, SEX sex)
+        public Body(HairLength hairLength, HairType hairType, string hairColor, string eyeColor, BodyType bodyType, float height, float weight, Sex sex)
         {
             _name = "body";
             _value = null;
@@ -103,7 +104,7 @@ namespace Data
             _sex = sex;
         }
 
-        public void ChangeBodyValues(HairLength hairLength, HairType hairType, string hairColor, string eyeColor, BodyType bodyType, float height, float weight, SEX sex)
+        public void ChangeBodyValues(HairLength hairLength, HairType hairType, string hairColor, string eyeColor, BodyType bodyType, float height, float weight, Sex sex)
         {
             _hairLength = hairLength;
             _hairType = hairType;
@@ -171,35 +172,38 @@ namespace Data
     public class Character
     {
         private List<BaseStuff> Characteristics;
-        public Character() { }
+        public Character()
+        {
+            Characteristics = new List<BaseStuff>();
+        }
         public void AddNew(BaseStuff stuff)
         {
             Characteristics.Add(stuff);
         }
 
-        public void AddNew(ClassRace classRace)
-        {
-            BaseStuff stuff = classRace;
-            Characteristics.Add(stuff);
-        }
-
-        public void AddNew(Body body)
-        {
-            BaseStuff stuff = body;
-            Characteristics.Add(stuff);
-        }
-
-        public void AddNew(Weapon weapon)
-        {
-            BaseStuff stuff = weapon;
-            Characteristics.Add(stuff);
-        }
-
-        public void AddNew(Armor armor)
-        {
-            BaseStuff stuff = armor;
-            Characteristics.Add(stuff);
-        }
+        //public void AddNew(ClassRace classRace)
+        //{
+        //    BaseStuff stuff = classRace;
+        //    Characteristics.Add(stuff);
+        //}
+        //
+        //public void AddNew(Body body)
+        //{
+        //    BaseStuff stuff = body;
+        //    Characteristics.Add(stuff);
+        //}
+        //
+        //public void AddNew(Weapon weapon)
+        //{
+        //    BaseStuff stuff = weapon;
+        //    Characteristics.Add(stuff);
+        //}
+        //
+        //public void AddNew(Armor armor)
+        //{
+        //    BaseStuff stuff = armor;
+        //    Characteristics.Add(stuff);
+        //}
 
         public List<BaseStuff> GetCharacteristics{ get; }
         public void ClearBasicInfo()
