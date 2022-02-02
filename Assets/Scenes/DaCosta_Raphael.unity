@@ -3665,6 +3665,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sheet: {fileID: 3620375760185278830, guid: a07f317706d985b40848f9e86687c4c1, type: 3}
   _buttonSavedSheet: {fileID: 8158470273869558843, guid: 8eb27f3f431bb3b4d8b537acb7889c33, type: 3}
+  _moreInfoBox: {fileID: 609372066266727413, guid: 663a8cf111f1d3f4a87648df5873cf53, type: 3}
   _generatorScreen: {fileID: 1390142026}
   _buttonFirstGeneration: {fileID: 800420675}
   _buttonsGenerate:

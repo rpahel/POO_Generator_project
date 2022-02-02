@@ -65,12 +65,19 @@ namespace Data
         public string Name { get => _name; }
         public string Value { get => _value; set { _value = value; } }
         public string Description { get => _description; set { _description = value; } }
+
+        public virtual string MoreInfo()
+        {
+            string moreInfo;
+            moreInfo = Description;
+            return moreInfo;
+        }
     }
 
     [Serializable]
     public class ClassRace : BaseStuff
     {
-        public int[] _baseSkills = new int[5];
+        private int[] _baseSkills = new int[5];
 
         public ClassRace(string name, string value, string description, int[] baseSkills)
         {
@@ -80,7 +87,15 @@ namespace Data
             _baseSkills = baseSkills;
         }
 
-        public int[] GetBaseSkills { get; set; }
+        public int[] BaseSkills { get => _baseSkills; set { _baseSkills = value; } }
+
+        public override string MoreInfo()
+        {
+            string moreInfo;
+            moreInfo = Description + "\n" + "Strength: " + BaseSkills[0].ToString() + "\n" + "Dexterity: " + BaseSkills[1].ToString() + "\n" + "Constituton: " + BaseSkills[2].ToString() +
+                "\n" + "Intelligence: " + BaseSkills[3].ToString() + "\n" + "Charisma: " + BaseSkills[4].ToString();
+            return moreInfo;
+        }
     }
 
     [Serializable]
@@ -117,6 +132,7 @@ namespace Data
         protected string _enchantment;
 
         public string Enchantment { get { return _enchantment; } }
+
     }
 
     [Serializable]
@@ -143,6 +159,13 @@ namespace Data
             _damage = damage;
             _range = range;
         }
+
+        public override string MoreInfo()
+        {
+            string moreInfo;
+            moreInfo = Description + "\n" + "Damage: " + _damage.ToString("F1") + "\n" + "Range: " + _range.ToString("F1");
+            return moreInfo;
+        }
     }
 
     [Serializable]
@@ -165,6 +188,13 @@ namespace Data
             _description = description;
             _defense = defense;
             _enchantment = null;
+        }
+
+        public override string MoreInfo()
+        {
+            string moreInfo;
+            moreInfo = Description + "\n" + "Defense: " + _defense.ToString("F1");
+            return moreInfo;
         }
     }
 

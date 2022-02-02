@@ -8,6 +8,8 @@ public class SheetScript : MonoBehaviour
 {
     [HideInInspector]
     public int _sheetNb;
+    [HideInInspector]
+    public bool _isLoadedSheet = false;
 
     [Header("Basic Info Texts")]
     public TMP_Text _characterNameText;
@@ -52,13 +54,21 @@ public class SheetScript : MonoBehaviour
         _itemTexts = new TMP_Text[5]{ _item1Text, _item2Text, _item3Text, _item4Text, _item5Text};
         _traitTexts = new TMP_Text[5]{ _trait1Text, _trait2Text, _trait3Text, _trait4Text, _trait5Text};
         _skillsTexts = new TMP_Text[5]{ _strengthText, _dexterityText, _constitutionText, _intelligenceText, _charismaText};
-        _classText.gameObject.AddComponent<BasicHoverable>();
-        _raceText.gameObject.AddComponent<BasicHoverable>();
-        for(int i = 0; i < 5; i++)
+        
+        BasicHoverable script = _classText.gameObject.GetComponent<BasicHoverable>();
+        script._index = _sheetNb;
+        script._fromLoadedSheet = _isLoadedSheet;
+        script._name = "characterClass";
+
+        script = _raceText.gameObject.GetComponent<BasicHoverable>();
+        script._index = _sheetNb;
+        script._fromLoadedSheet = _isLoadedSheet;
+        script._name = "characterRace";
+
+        for (int i = 0; i < 5; i++)
         {
-            _itemTexts[i].gameObject.AddComponent<BasicHoverable>();
             _itemTexts[i].text = "";
-            _traitTexts[i].gameObject.AddComponent<BasicHoverable>();
+            
             _traitTexts[i].text = "";
         }
     }
@@ -84,7 +94,7 @@ public class SheetScript : MonoBehaviour
                     ClassRace yop = info as ClassRace;
                     for (int i = 0; i < baseSkills.Length; i++)
                     {
-                        baseSkills[i] += yop._baseSkills[i];
+                        baseSkills[i] += yop.BaseSkills[i];
                     }
                     break;
 
@@ -93,7 +103,7 @@ public class SheetScript : MonoBehaviour
                     ClassRace poy = info as ClassRace;
                     for (int i = 0; i < baseSkills.Length; i++)
                     {
-                        baseSkills[i] += poy._baseSkills[i];
+                        baseSkills[i] += poy.BaseSkills[i];
                     }
                     break;
 
@@ -116,10 +126,8 @@ public class SheetScript : MonoBehaviour
 
         for (int i = 0; i < _skillsTexts.Length; i++)
         {
-            Debug.Log(baseSkills[i]);
             _skillsTexts[i].text = baseSkills[i].ToString();
         }
-        //Au script du gameobject du texte, assigner la definition, damge , range, defense, basicskill
     }
 
 
@@ -128,6 +136,22 @@ public class SheetScript : MonoBehaviour
         int itemNb = 0;
         foreach (var info in GlobalManager.GameInstance.GeneratedCharacters[_sheetNb].GetCharacteristics)
         {
+            if(info.Name == "weapon")
+            {
+                BasicHoverable script = _itemTexts[itemNb].gameObject.GetComponent<BasicHoverable>();
+                script._index = _sheetNb;
+                script._fromLoadedSheet = _isLoadedSheet;
+                script._name = "weapon";
+            }
+
+            if(info.Name == "armor")
+            {
+                BasicHoverable script = _itemTexts[itemNb].gameObject.GetComponent<BasicHoverable>();
+                script._index = _sheetNb;
+                script._fromLoadedSheet = _isLoadedSheet;
+                script._name = "armor";
+            }
+
             if (info.Name == "weapon" || info.Name == "armor")
             {
                 _itemTexts[itemNb].text = info.Value;
@@ -144,6 +168,10 @@ public class SheetScript : MonoBehaviour
             if(info.Name == "characterTrait")
             {
                 _traitTexts[traitNb].text = info.Value;
+                BasicHoverable script = _traitTexts[traitNb].gameObject.GetComponent<BasicHoverable>();
+                script._index = _sheetNb;
+                script._fromLoadedSheet = _isLoadedSheet;
+                script._name = "characterTrait";
                 traitNb++;
             }
         }
@@ -156,6 +184,7 @@ public class SheetScript : MonoBehaviour
 
     public void LoadInfo(int position)
     {
+        _sheetNb = position;
         int[] baseSkills = new int[5]{0,0,0,0,0};
         int itemNb = 0;
         int traitNb = 0;
@@ -176,7 +205,7 @@ public class SheetScript : MonoBehaviour
                     ClassRace yop = info as ClassRace;
                     for(int i = 0; i < baseSkills.Length; i++)
                     {
-                        baseSkills[i] += yop._baseSkills[i];
+                        baseSkills[i] += yop.BaseSkills[i];
                     }
                     break;
 
@@ -185,7 +214,7 @@ public class SheetScript : MonoBehaviour
                     ClassRace poy = info as ClassRace;
                     for (int i = 0; i < baseSkills.Length; i++)
                     {
-                        baseSkills[i] += poy._baseSkills[i];
+                        baseSkills[i] += poy.BaseSkills[i];
                     }
                     break;
 
@@ -205,6 +234,23 @@ public class SheetScript : MonoBehaviour
                     break;
             }
 
+
+            if (info.Name == "weapon")
+            {
+                BasicHoverable script = _itemTexts[itemNb].gameObject.GetComponent<BasicHoverable>();
+                script._index = _sheetNb;
+                script._fromLoadedSheet = _isLoadedSheet;
+                script._name = "weapon";
+            }
+
+            if (info.Name == "armor")
+            {
+                BasicHoverable script = _itemTexts[itemNb].gameObject.GetComponent<BasicHoverable>();
+                script._index = _sheetNb;
+                script._fromLoadedSheet = _isLoadedSheet;
+                script._name = "armor";
+            }
+            
             if (info.Name == "weapon" || info.Name == "armor")
             {
                 _itemTexts[itemNb].text = info.Value;
@@ -214,6 +260,10 @@ public class SheetScript : MonoBehaviour
             if (info.Name == "characterTrait")
             {
                 _traitTexts[traitNb].text = info.Value;
+                BasicHoverable script = _traitTexts[traitNb].gameObject.GetComponent<BasicHoverable>();
+                script._index = _sheetNb;
+                script._fromLoadedSheet = _isLoadedSheet;
+                script._name = "characterTrait";
                 traitNb++;
             }
 
@@ -222,6 +272,5 @@ public class SheetScript : MonoBehaviour
                 _skillsTexts[i].text = baseSkills[i].ToString();
             }
         }
-        //Au script du gameobject du texte, assigner la definition, damge , range, defense, basicskill
     }
 }

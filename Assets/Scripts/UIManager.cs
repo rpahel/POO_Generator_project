@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     private GameObject _sheet;
     [SerializeField]
     private GameObject _buttonSavedSheet;
+    [SerializeField]
+    private GameObject _moreInfoBox;
     [Space(20)]
 
     [Header("Generator Screen")]
@@ -39,6 +41,7 @@ public class UIManager : MonoBehaviour
     private SheetScript[] _sheetScripts = new SheetScript[3];
     private int _selectedSheetNb;
     private GameObject _loadedKeptSheet;
+    private GameObject _newInfoBox;
 
     private void Awake()
     {
@@ -101,11 +104,6 @@ public class UIManager : MonoBehaviour
 
     public void SavedSheets()
     {
-        foreach (var prout in GlobalManager.GameInstance._keptCharacters)
-        {
-            Debug.Log(prout.GetCharacteristics.Find(x => x.Name == "characterName").Value);
-        }
-
         _generatorScreen.SetActive(false);
         _savedSheetsScreen.SetActive(true);
         _savedSheetsbuttons = new GameObject[GlobalManager.GameInstance._keptCharacters.Count];
@@ -136,7 +134,6 @@ public class UIManager : MonoBehaviour
         if(GlobalManager.GameInstance._keptCharacters.Count == 10)
         {
             GlobalManager.GameInstance._keptCharacters.RemoveAt(0);
-            //GlobalManager.GameInstance._keptCharacters.Clear(); // fonctionne
         }
 
         Character keptCharacter = ObjectCopier.Clone(GlobalManager.GameInstance.GeneratedCharacters[_selectedSheetNb]);
@@ -152,7 +149,20 @@ public class UIManager : MonoBehaviour
         }
 
         _loadedKeptSheet = Instantiate(_sheet, _savedSheetsScreen.transform);
+        _loadedKeptSheet.GetComponent<SheetScript>()._isLoadedSheet = true;
         _loadedKeptSheet.GetComponent<SheetScript>().LoadInfo(position);
+    }
+
+    public void CreateInfoBox(RectTransform location, string info)
+    {
+        _newInfoBox = Instantiate(_moreInfoBox, location);
+        _newInfoBox.transform.SetParent(this.gameObject.transform, true);
+        _newInfoBox.transform.GetChild(1).GetComponent<TMP_Text>().text = info;
+    }
+
+    public void DeleteInfoBox()
+    {
+        Destroy(_newInfoBox);
     }
 
     public void Back()
