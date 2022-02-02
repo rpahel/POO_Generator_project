@@ -54,16 +54,6 @@ public class SheetScript : MonoBehaviour
         _itemTexts = new TMP_Text[5]{ _item1Text, _item2Text, _item3Text, _item4Text, _item5Text};
         _traitTexts = new TMP_Text[5]{ _trait1Text, _trait2Text, _trait3Text, _trait4Text, _trait5Text};
         _skillsTexts = new TMP_Text[5]{ _strengthText, _dexterityText, _constitutionText, _intelligenceText, _charismaText};
-        
-        BasicHoverable script = _classText.gameObject.GetComponent<BasicHoverable>();
-        script._index = _sheetNb;
-        script._fromLoadedSheet = _isLoadedSheet;
-        script._name = "characterClass";
-
-        script = _raceText.gameObject.GetComponent<BasicHoverable>();
-        script._index = _sheetNb;
-        script._fromLoadedSheet = _isLoadedSheet;
-        script._name = "characterRace";
 
         for (int i = 0; i < 5; i++)
         {
@@ -76,6 +66,16 @@ public class SheetScript : MonoBehaviour
     public void UpdateBasicInfo()
     {
         int[] baseSkills = new int[5] { 0, 0, 0, 0, 0 };
+
+        BasicHoverable script = _classText.gameObject.GetComponent<BasicHoverable>();
+        script._index = _sheetNb;
+        script._fromLoadedSheet = _isLoadedSheet;
+        script._name = "characterClass";
+
+        script = _raceText.gameObject.GetComponent<BasicHoverable>();
+        script._index = _sheetNb;
+        script._fromLoadedSheet = _isLoadedSheet;
+        script._name = "characterRace";
 
         foreach (var info in GlobalManager.GameInstance.GeneratedCharacters[_sheetNb].GetCharacteristics)
         {
@@ -142,6 +142,7 @@ public class SheetScript : MonoBehaviour
                 script._index = _sheetNb;
                 script._fromLoadedSheet = _isLoadedSheet;
                 script._name = "weapon";
+                script._position = itemNb;
             }
 
             if(info.Name == "armor")
@@ -150,6 +151,7 @@ public class SheetScript : MonoBehaviour
                 script._index = _sheetNb;
                 script._fromLoadedSheet = _isLoadedSheet;
                 script._name = "armor";
+                script._position = itemNb;
             }
 
             if (info.Name == "weapon" || info.Name == "armor")
@@ -172,6 +174,7 @@ public class SheetScript : MonoBehaviour
                 script._index = _sheetNb;
                 script._fromLoadedSheet = _isLoadedSheet;
                 script._name = "characterTrait";
+                script._position = traitNb;
                 traitNb++;
             }
         }
@@ -188,6 +191,17 @@ public class SheetScript : MonoBehaviour
         int[] baseSkills = new int[5]{0,0,0,0,0};
         int itemNb = 0;
         int traitNb = 0;
+
+        BasicHoverable script = _classText.gameObject.GetComponent<BasicHoverable>();
+        script._index = _sheetNb;
+        script._fromLoadedSheet = _isLoadedSheet;
+        script._name = "characterClass";
+
+        script = _raceText.gameObject.GetComponent<BasicHoverable>();
+        script._index = _sheetNb;
+        script._fromLoadedSheet = _isLoadedSheet;
+        script._name = "characterRace";
+
         foreach (var info in GlobalManager.GameInstance._keptCharacters[position].GetCharacteristics)
         {
             switch (info.Name)
@@ -237,20 +251,22 @@ public class SheetScript : MonoBehaviour
 
             if (info.Name == "weapon")
             {
-                BasicHoverable script = _itemTexts[itemNb].gameObject.GetComponent<BasicHoverable>();
+                script = _itemTexts[itemNb].gameObject.GetComponent<BasicHoverable>();
                 script._index = _sheetNb;
                 script._fromLoadedSheet = _isLoadedSheet;
                 script._name = "weapon";
+                script._position = itemNb;
             }
 
             if (info.Name == "armor")
             {
-                BasicHoverable script = _itemTexts[itemNb].gameObject.GetComponent<BasicHoverable>();
+                script = _itemTexts[itemNb].gameObject.GetComponent<BasicHoverable>();
                 script._index = _sheetNb;
                 script._fromLoadedSheet = _isLoadedSheet;
                 script._name = "armor";
+                script._position = itemNb;
             }
-            
+
             if (info.Name == "weapon" || info.Name == "armor")
             {
                 _itemTexts[itemNb].text = info.Value;
@@ -260,10 +276,11 @@ public class SheetScript : MonoBehaviour
             if (info.Name == "characterTrait")
             {
                 _traitTexts[traitNb].text = info.Value;
-                BasicHoverable script = _traitTexts[traitNb].gameObject.GetComponent<BasicHoverable>();
+                script = _traitTexts[traitNb].gameObject.GetComponent<BasicHoverable>();
                 script._index = _sheetNb;
                 script._fromLoadedSheet = _isLoadedSheet;
                 script._name = "characterTrait";
+                script._position = traitNb;
                 traitNb++;
             }
 

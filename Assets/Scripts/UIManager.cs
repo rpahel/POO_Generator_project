@@ -29,6 +29,8 @@ public class UIManager : MonoBehaviour
     private GameObject _selectedSheetScreen;
     [SerializeField]
     private RectTransform _selectedSheetSpot;
+    [SerializeField]
+    private GameObject _keepButton;
     [Space(20)]
 
     [Header("Saved Sheets Screen")]
@@ -58,20 +60,18 @@ public class UIManager : MonoBehaviour
     public void FirstGenerate()
     {
         GlobalManager.GameInstance.GenerateBasicInfo();
-        
-        int i = 0;
+
         _buttonFirstGeneration.SetActive(false);
         foreach(var button in _buttonsGenerate)
         {
             button.SetActive(true);
         }
-        foreach(var spot in _generatorSheetSpots)
+        for(int i = 0; i < _generatorSheetSpots.Length; i++)
         {
-            GameObject newSheet = Instantiate(_sheet, spot);
+            GameObject newSheet = Instantiate(_sheet, _generatorSheetSpots[i]);
             _sheetScripts[i] = newSheet.GetComponent<SheetScript>();
             _sheetScripts[i]._sheetNb = i;
             _sheetScripts[i].UpdateBasicInfo();
-            i++;
         }
     }
 
@@ -121,12 +121,14 @@ public class UIManager : MonoBehaviour
         _selectedSheetNb = sheetNb;
         _generatorScreen.SetActive(false);
         _selectedSheetScreen.SetActive(true);
+        _keepButton.SetActive(true);
         GameObject newSheet = Instantiate(_sheet, _selectedSheetSpot);
         SheetScript selectedSheet = newSheet.GetComponent<SheetScript>();
         selectedSheet._sheetNb = sheetNb;
         selectedSheet.UpdateBasicInfo();
         selectedSheet.UpdateEquipment();
         selectedSheet.UpdateTraits();
+
     }
 
     public void KeepSheet()
@@ -139,6 +141,8 @@ public class UIManager : MonoBehaviour
         Character keptCharacter = ObjectCopier.Clone(GlobalManager.GameInstance.GeneratedCharacters[_selectedSheetNb]);
 
         GlobalManager.GameInstance._keptCharacters.Add(keptCharacter);
+
+        _keepButton.SetActive(false);
     }
 
     public void LoadKeptSheet(int position)

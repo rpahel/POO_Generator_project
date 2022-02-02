@@ -5,34 +5,58 @@ using UnityEngine;
 
 public class BasicHoverable : MonoBehaviour
 {
-    //[HideInInspector]
+    [HideInInspector]
     public string _name;
-    //[HideInInspector]
+    [HideInInspector]
     public int _index;
+    [HideInInspector]
     public int _position;
-    //[HideInInspector]
+    [HideInInspector]
     public bool _fromLoadedSheet;
 
-    BaseStuff fatig;
-    string moreInfo;
+    private BaseStuff _fatig;
+    private List<BaseStuff> _fatigs = new List<BaseStuff>();
+    string _moreInfo;
 
     public void UpdateInfoBox()
     {
         if (_fromLoadedSheet)
         {
-            if(_name == "characterTrait" || _name == "armor" || _name == "weapon")
+            if(_name == "characterTrait")
             {
-                // faire en sorte de prendre d'utiliser la position du texte pour retreouver le fatig correspondant (findall ?)
+                _fatigs = GlobalManager.GameInstance._keptCharacters[_index].GetCharacteristics.FindAll(x => x.Name == _name);
             }
 
-            fatig = GlobalManager.GameInstance._keptCharacters[_index].GetCharacteristics.Find(x => x.Name == _name);
+            if (_name == "weapon" || _name == "armor")
+            {
+                _fatigs = GlobalManager.GameInstance._keptCharacters[_index].GetCharacteristics.FindAll(x => (x.Name == "weapon" || x.Name == "armor"));
+            }
+
+            _fatig = GlobalManager.GameInstance._keptCharacters[_index].GetCharacteristics.Find(x => x.Name == _name);
         }
         else
         {
-            fatig = GlobalManager.GameInstance.GeneratedCharacters[_index].GetCharacteristics.Find(x => x.Name == _name);
+            if (_name == "characterTrait")
+            {
+                _fatigs = GlobalManager.GameInstance.GeneratedCharacters[_index].GetCharacteristics.FindAll(x => x.Name == _name);
+            }
+
+            if (_name == "weapon" || _name == "armor")
+            {
+                _fatigs = GlobalManager.GameInstance.GeneratedCharacters[_index].GetCharacteristics.FindAll(x => (x.Name == "weapon" || x.Name == "armor"));
+            }
+
+            _fatig = GlobalManager.GameInstance.GeneratedCharacters[_index].GetCharacteristics.Find(x => x.Name == _name);
         }
 
-        moreInfo = fatig.MoreInfo();
+        if(_fatigs.Count == 0)
+        {
+            _moreInfo = _fatig.MoreInfo();
+        }
+        else
+        {
+            _moreInfo = _fatigs[_position].MoreInfo();
+        }
     }
 
     public void OnMouseEnter()
@@ -41,7 +65,7 @@ public class BasicHoverable : MonoBehaviour
         {
             UpdateInfoBox();
 
-            GlobalManager.UIInstance.CreateInfoBox(GetComponent<RectTransform>(), moreInfo);
+            GlobalManager.UIInstance.CreateInfoBox(GetComponent<RectTransform>(), _moreInfo);
         }
     }
 

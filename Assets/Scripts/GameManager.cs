@@ -33,8 +33,10 @@ public class GameManager : MonoBehaviour
 
     private Character[] _generatedCharacters = new Character[3];
 
+    [HideInInspector]
     public List<Character> _keptCharacters = new List<Character>();
 
+    [HideInInspector]
     public Character[] GeneratedCharacters { get { return _generatedCharacters; } }
 
     public void GenerateBasicInfo()

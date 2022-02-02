@@ -3131,8 +3131,7 @@ MonoBehaviour:
     baseSkills: 0000000001000000010000000200000000000000
   - value: Warlock
     description: Warlocks are arcane spellcasters who gained power through pacts
-      with powerful entities, most commonly devils, elder evils of the Far Realm,
-      fey, or demons.
+      with powerful entities, most commonly devils.
     baseSkills: 0100000000000000010000000200000000000000
   - value: Wizard
     description: Wizards are a form of spellcasters who learned the art of arcane
@@ -3678,6 +3677,7 @@ MonoBehaviour:
   - {fileID: 1429677304}
   _selectedSheetScreen: {fileID: 207633252}
   _selectedSheetSpot: {fileID: 401598268}
+  _keepButton: {fileID: 521806728}
   _savedSheetsScreen: {fileID: 1397083413}
   _buttonSavedSheetsSpots:
   - {fileID: 1354645253}
