@@ -143,6 +143,16 @@ public class SheetScript : MonoBehaviour
                 script._fromLoadedSheet = _isLoadedSheet;
                 script._name = "weapon";
                 script._position = itemNb;
+
+                Weapon newWeapon = info as Weapon;
+                if (newWeapon == null)
+                {
+                    Debug.Log("Aie SheetScript l.150");
+                }
+                else
+                {
+                    _itemTexts[itemNb].text = newWeapon.Enchantment + " " + newWeapon.Value;
+                }
             }
 
             if(info.Name == "armor")
@@ -152,11 +162,21 @@ public class SheetScript : MonoBehaviour
                 script._fromLoadedSheet = _isLoadedSheet;
                 script._name = "armor";
                 script._position = itemNb;
+
+                Armor newArmor = info as Armor;
+                if(newArmor == null)
+                {
+                    Debug.Log("Aie SheetScript l.169");
+                }
+                else
+                {
+                    _itemTexts[itemNb].text = newArmor.Enchantment + " " + newArmor.Value;
+                }
             }
 
             if (info.Name == "weapon" || info.Name == "armor")
             {
-                _itemTexts[itemNb].text = info.Value;
+                //_itemTexts[itemNb].text = info.Value;
                 itemNb++;
             }
         }
@@ -256,6 +276,16 @@ public class SheetScript : MonoBehaviour
                 script._fromLoadedSheet = _isLoadedSheet;
                 script._name = "weapon";
                 script._position = itemNb;
+
+                Weapon newWeapon = info as Weapon;
+                if (newWeapon == null)
+                {
+                    Debug.Log("Aie SheetScript l.283");
+                }
+                else
+                {
+                    _itemTexts[itemNb].text = newWeapon.Enchantment + " " + newWeapon.Value;
+                }
             }
 
             if (info.Name == "armor")
@@ -265,11 +295,21 @@ public class SheetScript : MonoBehaviour
                 script._fromLoadedSheet = _isLoadedSheet;
                 script._name = "armor";
                 script._position = itemNb;
+
+                Armor newArmor = info as Armor;
+                if (newArmor == null)
+                {
+                    Debug.Log("Aie SheetScript l.302");
+                }
+                else
+                {
+                    _itemTexts[itemNb].text = newArmor.Enchantment + " " + newArmor.Value;
+                }
             }
 
             if (info.Name == "weapon" || info.Name == "armor")
             {
-                _itemTexts[itemNb].text = info.Value;
+                //_itemTexts[itemNb].text = info.Value;
                 itemNb++;
             }
 
